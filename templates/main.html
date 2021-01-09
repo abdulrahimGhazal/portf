@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('.table').dataTable({
+    "bPaginate": false,
+    "pageLength": 50,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bInfo": false,
+    "bAutoWidth": false,
+    "order": [[ 2, "desc" ]],
+    });
+});
+</script>
+
+<script>
+    function resizeIframe(obj) {
+      obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+  </script>
+
+<div class="" style="padding-top: 60px;">
+<iframe srcdoc="{{div_placeholder}}" frameborder="0" scrolling="no" onload="resizeIframe(this)" width="100%" height="100%" style="float:right"></iframe>
+<iframe srcdoc="{{div_placeholder2}}" frameborder="0" scrolling="no" onload="resizeIframe(this)" width="100%" height="100%" style="float:right"></iframe>
+<iframe srcdoc="{{div_placeholder3}}" frameborder="0" scrolling="no" onload="resizeIframe(this)" width="100%" height="100%" style="float:right"></iframe>
+<div class="col-md-9">
+    
+</div>
+
+<div class="col-md-3">
+<div class="" style="padding-top: 60px;">
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">CC Shops (reCAPTCHA: {{balance}})</h3>
+    </div>
+    <table class="table table-striped table-hover" style="table-layout: fixed;">
+        <thead>
+        <tr>
+            <th>CC Shop</th>
+            <th>Total Cards</th>
+            <th>Today Cards</th>
+        </tr>
+        </thead>
+        <tbody>       
+
+{% for cardshop in cardshops_stats %}
+            <tr>
+                <td><a href="/statistics/cardshop={{cardshop.name}}">{{cardshop.name}}</a></td>
+                <td><span class="badge">{{cardshop.total_cards_amount}}</span></td>
+                <td><span class="badge">{{cardshop.today_cards_amount}}</span></td>
+            </tr>
+{% endfor %}  
+
+ 
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Markets</h3>
+    </div>
+    <table class="table table-striped table-hover" style="table-layout: fixed;">
+        <thead>
+        <tr>
+
+            <th>Market</th>
+            <th>Total Records</th>
+            <th>Today Records</th>
+        </tr>
+        </thead>
+        <tbody>       
+
+            <tr>
+                <td>San-Wells</td>
+                <td><span class="badge">{{markets.sanwells.total}}</span></td>
+                <td><span class="badge">{{markets.sanwells.today}}</span></td>
+            </tr>
+
+ 
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
